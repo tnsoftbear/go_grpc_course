@@ -27,13 +27,13 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	log.Printf("added task - id: %s", task1.GetId())
+	log.Printf("added todo - id: %s", task1.GetId())
 
 	task2, err := client.AddTask(ctx, &proto.AddTaskRequest{Task: "walk the dog"})
 	if err != nil {
 		log.Fatal(err)
 	}
-	log.Printf("added task - id: %s", task2.GetId())
+	log.Printf("added todo - id: %s", task2.GetId())
 
 	tasks, err := client.ListTasks(ctx, &proto.ListTasksRequest{})
 	if err != nil {
@@ -45,13 +45,13 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	log.Printf("completed task - id: %s", task1.GetId())
+	log.Printf("completed todo - id: %s", task1.GetId())
 
 	task3, err := client.AddTask(ctx, &proto.AddTaskRequest{Task: "have breakfast"})
 	if err != nil {
 		log.Fatal(err)
 	}
-	log.Printf("added task - id: %s", task3.GetId())
+	log.Printf("added todo - id: %s", task3.GetId())
 
 	tasks, err = client.ListTasks(ctx, &proto.ListTasksRequest{})
 	if err != nil {

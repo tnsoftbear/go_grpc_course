@@ -22,13 +22,13 @@ func NewService() *service {
 func (s *service) AddTask(ctx context.Context, request *proto.AddTaskRequest) (*proto.AddTaskResponse, error) {
 	// validate input
 	if request.GetTask() == "" {
-		return nil, status.Error(codes.InvalidArgument, "task cannot be empty")
+		return nil, status.Error(codes.InvalidArgument, "todo cannot be empty")
 	}
 
-	// generate ID for task
+	// generate ID for todo
 	id := uuid.New().String()
 
-	// add task to store
+	// add todo to store
 	s.tasks[id] = request.GetTask()
 
 	// return generated ID
@@ -38,12 +38,12 @@ func (s *service) AddTask(ctx context.Context, request *proto.AddTaskRequest) (*
 }
 
 func (s *service) CompleteTask(ctx context.Context, request *proto.CompleteTaskRequest) (*proto.CompleteTaskResponse, error) {
-	// check if task exists
+	// check if todo exists
 	if _, ok := s.tasks[request.GetId()]; !ok {
-		return nil, status.Error(codes.NotFound, "task not found")
+		return nil, status.Error(codes.NotFound, "todo not found")
 	}
 
-	// remove task from store
+	// remove todo from store
 	delete(s.tasks, request.GetId())
 
 	// return response

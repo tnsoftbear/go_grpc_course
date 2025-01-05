@@ -34,7 +34,7 @@ func TestNewService(t *testing.T) {
 }
 
 func TestService_AddTask(t *testing.T) {
-	t.Run("returns INVALID_ARGUMENT status code when task is empty", func(t *testing.T) {
+	t.Run("returns INVALID_ARGUMENT status code when todo is empty", func(t *testing.T) {
 		var (
 			ctrl, ctx = gomock.WithContext(context.Background(), t)
 			todoStore = store_mock.NewMockTaskStore(ctrl)
@@ -50,7 +50,7 @@ func TestService_AddTask(t *testing.T) {
 		require.True(t, ok)
 
 		assert.Equal(t, codes.InvalidArgument, statusErr.Code())
-		assert.Equal(t, "task cannot be empty", statusErr.Message())
+		assert.Equal(t, "todo cannot be empty", statusErr.Message())
 	})
 
 	t.Run("returns INTERNAL status code when an error is returned from the store", func(t *testing.T) {
@@ -74,13 +74,13 @@ func TestService_AddTask(t *testing.T) {
 		require.True(t, ok)
 
 		assert.Equal(t, codes.Internal, statusErr.Code())
-		assert.Equal(t, fmt.Sprintf("failed to add task: %v", testErr), statusErr.Message())
+		assert.Equal(t, fmt.Sprintf("failed to add todo: %v", testErr), statusErr.Message())
 	})
 
-	t.Run("returns task ID when task is stored successfully", func(t *testing.T) {
+	t.Run("returns todo ID when todo is stored successfully", func(t *testing.T) {
 		const (
 			task   = "wake up"
-			taskID = "some task id"
+			taskID = "some todo id"
 		)
 		var (
 			ctrl, ctx = gomock.WithContext(context.Background(), t)
@@ -100,8 +100,8 @@ func TestService_AddTask(t *testing.T) {
 }
 
 func TestService_CompleteTask(t *testing.T) {
-	t.Run("returns NOT_FOUND status code when task is not found", func(t *testing.T) {
-		const taskID = "some task id"
+	t.Run("returns NOT_FOUND status code when todo is not found", func(t *testing.T) {
+		const taskID = "some todo id"
 		var (
 			ctrl, ctx = gomock.WithContext(context.Background(), t)
 			todoStore = store_mock.NewMockTaskStore(ctrl)
@@ -119,11 +119,11 @@ func TestService_CompleteTask(t *testing.T) {
 		require.True(t, ok)
 
 		assert.Equal(t, codes.NotFound, statusErr.Code())
-		assert.Equal(t, "task not found", statusErr.Message())
+		assert.Equal(t, "todo not found", statusErr.Message())
 	})
 
 	t.Run("returns INTERNAL status code when an error is returned from the store", func(t *testing.T) {
-		const taskID = "some task id"
+		const taskID = "some todo id"
 		var (
 			ctrl, ctx = gomock.WithContext(context.Background(), t)
 			todoStore = store_mock.NewMockTaskStore(ctrl)
@@ -143,11 +143,11 @@ func TestService_CompleteTask(t *testing.T) {
 		require.True(t, ok)
 
 		assert.Equal(t, codes.Internal, statusErr.Code())
-		assert.Equal(t, fmt.Sprintf("failed to complete task: %v", testErr), statusErr.Message())
+		assert.Equal(t, fmt.Sprintf("failed to complete todo: %v", testErr), statusErr.Message())
 	})
 
-	t.Run("returns successful response when a task is completed", func(t *testing.T) {
-		const taskID = "some task id"
+	t.Run("returns successful response when a todo is completed", func(t *testing.T) {
+		const taskID = "some todo id"
 		var (
 			ctrl, ctx = gomock.WithContext(context.Background(), t)
 			todoStore = store_mock.NewMockTaskStore(ctrl)
@@ -190,9 +190,9 @@ func TestService_ListTasks(t *testing.T) {
 
 	t.Run("returns a list of tasks retrieved from store", func(t *testing.T) {
 		const (
-			taskID1 = "some task id 1"
-			taskID2 = "some task id 2"
-			taskID3 = "some task id 3"
+			taskID1 = "some todo id 1"
+			taskID2 = "some todo id 2"
+			taskID3 = "some todo id 3"
 
 			task1 = "wake up"
 			task2 = "walk the dog"

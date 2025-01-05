@@ -35,12 +35,12 @@ func NewService(store TaskStore) (*service, error) {
 
 func (s *service) AddTask(ctx context.Context, request *proto.AddTaskRequest) (*proto.AddTaskResponse, error) {
 	if request.GetTask() == "" {
-		return nil, status.Error(codes.InvalidArgument, "task cannot be empty")
+		return nil, status.Error(codes.InvalidArgument, "todo cannot be empty")
 	}
 
 	id, err := s.store.AddTask(request.Task)
 	if err != nil {
-		return nil, status.Errorf(codes.Internal, "failed to add task: %v", err)
+		return nil, status.Errorf(codes.Internal, "failed to add todo: %v", err)
 	}
 
 	return &proto.AddTaskResponse{
@@ -51,10 +51,10 @@ func (s *service) AddTask(ctx context.Context, request *proto.AddTaskRequest) (*
 func (s *service) CompleteTask(ctx context.Context, request *proto.CompleteTaskRequest) (*proto.CompleteTaskResponse, error) {
 	if err := s.store.CompleteTask(request.GetId()); err != nil {
 		if errors.Is(err, todo.ErrTaskNotFound) {
-			return nil, status.Error(codes.NotFound, "task not found")
+			return nil, status.Error(codes.NotFound, "todo not found")
 		}
 
-		return nil, status.Errorf(codes.Internal, "failed to complete task: %v", err)
+		return nil, status.Errorf(codes.Internal, "failed to complete todo: %v", err)
 	}
 
 	return &proto.CompleteTaskResponse{}, nil

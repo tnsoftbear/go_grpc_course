@@ -12,10 +12,10 @@ proto-gen:
 		--go-grpc_out=. --go-grpc_opt=paths=source_relative \
 		proto/todo.proto
 
-.PHONY: run-server
-run-server:
-	go run cmd/server/main.go
+.PHONY: server
+server:
+	go run -mod=readonly cmd/server/server.go
 
-.PHONY: run-client
-run-client:
-	go run cmd/client/main.go
+.PHONY: client
+client:
+	go run -mod=readonly cmd/client/client.go

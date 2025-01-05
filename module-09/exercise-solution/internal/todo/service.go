@@ -23,13 +23,13 @@ func NewService() *service {
 func (s *service) AddTask(ctx context.Context, c *connect.Request[proto.AddTaskRequest]) (*connect.Response[proto.AddTaskResponse], error) {
 	// validate input
 	if c.Msg.GetTask() == "" {
-		return nil, connect.NewError(connect.CodeInvalidArgument, errors.New("task cannot be empty"))
+		return nil, connect.NewError(connect.CodeInvalidArgument, errors.New("todo cannot be empty"))
 	}
 
-	// generate ID for task
+	// generate ID for todo
 	id := uuid.New().String()
 
-	// add task to store
+	// add todo to store
 	s.tasks[id] = c.Msg.GetTask()
 
 	// return generated ID
@@ -39,12 +39,12 @@ func (s *service) AddTask(ctx context.Context, c *connect.Request[proto.AddTaskR
 }
 
 func (s *service) CompleteTask(ctx context.Context, c *connect.Request[proto.CompleteTaskRequest]) (*connect.Response[proto.CompleteTaskResponse], error) {
-	// check if task exists
+	// check if todo exists
 	if _, ok := s.tasks[c.Msg.GetId()]; !ok {
-		return nil, connect.NewError(connect.CodeNotFound, errors.New("task not found"))
+		return nil, connect.NewError(connect.CodeNotFound, errors.New("todo not found"))
 	}
 
-	// remove task from store
+	// remove todo from store
 	delete(s.tasks, c.Msg.GetId())
 
 	// return response

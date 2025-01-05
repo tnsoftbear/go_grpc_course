@@ -16,7 +16,7 @@ type (
 	}
 )
 
-var ErrTaskNotFound = errors.New("task not found")
+var ErrTaskNotFound = errors.New("todo not found")
 
 func NewStore() *store {
 	return &store{
@@ -24,26 +24,26 @@ func NewStore() *store {
 	}
 }
 
-// AddTask adds a task to the in-memory store.
+// AddTask adds a todo to the in-memory store.
 func (s *store) AddTask(task string) (string, error) {
-	// generate ID for task
+	// generate ID for todo
 	id := uuid.New().String()
 
-	// add task to store
+	// add todo to store
 	s.tasks[id] = task
 
 	// return generated ID
 	return id, nil
 }
 
-// CompleteTask removes a task from the in-memory store.
+// CompleteTask removes a todo from the in-memory store.
 func (s *store) CompleteTask(taskID string) error {
-	// check if task exists
+	// check if todo exists
 	if _, ok := s.tasks[taskID]; !ok {
 		return ErrTaskNotFound
 	}
 
-	// remove task from store
+	// remove todo from store
 	delete(s.tasks, taskID)
 
 	// return response

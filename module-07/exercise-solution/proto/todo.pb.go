@@ -25,7 +25,7 @@ type AddTaskRequest struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Task string `protobuf:"bytes,1,opt,name=task,proto3" json:"task,omitempty"`
+	Task string `protobuf:"bytes,1,opt,name=todo,proto3" json:"todo,omitempty"`
 }
 
 func (x *AddTaskRequest) Reset() {
@@ -290,7 +290,7 @@ type Task struct {
 	unknownFields protoimpl.UnknownFields
 
 	Id   string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
-	Task string `protobuf:"bytes,2,opt,name=task,proto3" json:"task,omitempty"`
+	Task string `protobuf:"bytes,2,opt,name=todo,proto3" json:"todo,omitempty"`
 }
 
 func (x *Task) Reset() {
