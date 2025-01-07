@@ -3,7 +3,7 @@ module github.com/cshep4/grpc-course/module3-exercise
 go 1.22.1
 
 require (
-	github.com/google/uuid v1.3.1
+	golang.org/x/sync v0.4.0
 	google.golang.org/grpc v1.60.1
 	google.golang.org/protobuf v1.32.0
 )

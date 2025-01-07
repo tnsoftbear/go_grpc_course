@@ -14,8 +14,14 @@ proto-gen:
 
 .PHONY: run-server
 run-server:
-	go run cmd/server/main.go
+	go run -mod=readonly cmd/server/main.go
 
 .PHONY: run-client
 run-client:
-	go run cmd/client/main.go
+	go run -mod=readonly cmd/client-stream-client/main.go
+
+run-server-stream-client:
+	go run -mod=readonly cmd/server-stream-client/main.go
+
+run-bi-client:
+	go run -mod=readonly cmd/bi-directional-stream-client/main.go

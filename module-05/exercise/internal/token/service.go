@@ -2,6 +2,7 @@ package token
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/cshep4/grpc-course/module5-exercise/proto"
 )
@@ -11,6 +12,6 @@ type Service struct {
 }
 
 func (s Service) Validate(ctx context.Context, _ *proto.ValidateRequest) (*proto.ValidateResponse, error) {
-	// your implementation goes here ...
-	panic("implement me")
+	fmt.Println("Start validation")
+	return &proto.ValidateResponse{}, nil
 }
